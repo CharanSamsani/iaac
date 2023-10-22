@@ -80,7 +80,8 @@ resource "aws_security_group" "new_sg" {
     }
     ]
 
-    egress = {
+    egress = [ 
+    {
         description = "outbounds"
         from_port = 0
         to_port = 0
@@ -91,6 +92,7 @@ resource "aws_security_group" "new_sg" {
         security_groups = []
         self = false
     }
+    ]
 }
 
 resource "aws_instance" "new_instance" {
@@ -121,5 +123,36 @@ resource "aws_s3_bucket" "new_bucket" {
     Name = "myS3bucket"
     Environment = "Production"
     Owner = "Charan"
+  }
+}
+
+resource "aws_ebs_volume" "new_ebs" {
+  availability_zone = "ap-south-1a"
+  size = 1
+  tags = {
+    Name = "ebs_1"
+  }
+}
+
+resource "aws_volume_attachment" "new_ebs_attach" {
+  device_name = "/dev/sdf"
+  volume_id = aws_ebs_volume.new_ebs.id
+  instance_id = aws_instance.new_instance.id
+  force_detach = true
+
+  connection {
+    type = "ssh"
+    user = "ec2-user"
+    private_key = file("~/.ssh/id_rsa")
+    host = aws_instance.new_instance.public_ip
+  }
+
+  provisioner "remote-exec" {
+    inline = [ 
+      "sudo mkfs -t ext4 /dev/xvdf",
+      "sudo mount /dev/xvdf /var/www/html",
+      "sudo rm -rf /var/www/html*"
+      "sudo git clone ***ADD REPOSITORY LINK HERE*** /var/www/html"
+     ]
   }
 }
