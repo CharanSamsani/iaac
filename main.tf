@@ -102,4 +102,24 @@ resource "aws_instance" "new_instance" {
   key_name = aws_key_pair.new_key_pair.key_name
   subnet_id = aws_subnet.new_subnet.id
   vpc_security_group_ids = [aws_security_group.new_sg.id]
+
+  user_data = <<-EOF
+  #!/bin/bash
+  sudo yum update -y
+  sudo yum upgrade -y
+  sudo yum install httpd php git -y
+  sudo systemctl enable httpd 
+  sudo systemctl start httpd
+  EOF
+}
+
+resource "aws_s3_bucket" "new_bucket" {
+  bucket = "bucket_1"
+  acl = "public-read"
+
+  tags = {
+    Name = "myS3bucket"
+    Environment = "Production"
+    Owner = "Charan"
+  }
 }
