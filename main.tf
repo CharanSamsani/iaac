@@ -152,7 +152,7 @@ resource "aws_volume_attachment" "new_ebs_attach" {
       "sudo mkfs -t ext4 /dev/xvdf",
       "sudo mount /dev/xvdf /var/www/html",
       "sudo rm -rf /var/www/html*"
-      "sudo git clone ***ADD REPOSITORY LINK HERE*** /var/www/html"
+      "sudo git clone https://github.com/Charan-Samsani/test.git /var/www/html"
      ]
   }
 }
