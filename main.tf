@@ -17,7 +17,7 @@ resource "aws_subnet" "new_subnet" {
   vpc_id = aws_vpc.new_vpc.id
   availability_zone = "ap-south-1a"
   cidr_block = "10.0.0.0/24"
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = true 
 }
 
 resource "aws_internet_gateway" "new_gateway" {
