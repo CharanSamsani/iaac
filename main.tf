@@ -1,6 +1,6 @@
 resource "aws_key_pair" "new_key_pair" {
   key_name = "IAAC"
-  public_key = file("~/.ssh/id_rsa.pub")
+  public_key = file("~/.ssh/id_rsa.pub") 
 }
 
 resource "aws_vpc" "new_vpc" {
