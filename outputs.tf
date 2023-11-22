@@ -17,3 +17,8 @@ output "publicIP" {
   description = "Public IP address : "
   value = aws_instance.myinstance.public_ip
 }
+
+output "privateIP" {
+  description = "Private IP address : "
+  value = aws_instance.myinstance.private_ip
+}
