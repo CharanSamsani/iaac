@@ -12,3 +12,8 @@ output "instanceState" {
   description = "State of the Instance : "
   value = aws_instance.myinstance.instance_state
 }
+
+output "publicIP" {
+  description = "Public IP address : "
+  value = aws_instance.myinstance.public_ip
+}
