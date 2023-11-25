@@ -140,13 +140,6 @@ resource "aws_volume_attachment" "new_ebs_attach" {
   instance_id = aws_instance.new_instance.id
   force_detach = true
 
-  connection {
-    type = "ssh"
-    user = "ec2-user"
-    private_key = file("~/.ssh/id_rsa")
-    host = aws_instance.new_instance.public_ip
-  }
-
   provisioner "remote-exec" {
     inline = [ 
       "sudo mkfs -t ext4 /dev/xvdf",
