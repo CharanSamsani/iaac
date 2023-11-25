@@ -10,7 +10,7 @@ resource "aws_vpc" "new_vpc" {
   cidr_block = var.cidr
 }
 
-resource "aws_subnet" "new_subnet" {
+resource "aws_subnet" "new_subnet" { 
   tags = {
     Name = "subnet_1"
   }
